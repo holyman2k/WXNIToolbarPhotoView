@@ -29,7 +29,9 @@
     self.activeRequest = [[NSMutableSet alloc] init];
     self.photoCache = [[NSCache alloc] init];
     
-    [self setAutomaticallyAdjustsScrollViewInsets: NO];
+    if ([UIDevice currentDevice].systemVersion.floatValue >= 7) {
+        [self setAutomaticallyAdjustsScrollViewInsets: NO];
+    }
     self.photoAlbumView.dataSource = self;
     self.photoAlbumView.loadingImage = [UIImage imageWithContentsOfFile:NIPathForBundleResource(nil, DefaultPhoto)];
     
@@ -73,7 +75,9 @@
         self.hidesChromeWhenScrolling = YES;
         self.photoAlbumView.frame = self.view.frame; // fix bug with toolbar not transparent
         self.wantsFullScreenLayout = YES;
-        
+        if (self.navigationController) {
+            self.photoAlbumView.frame = self.navigationController.view.frame; // fix bug with toolbar not transparent
+        }
         
         [self.photoAlbumView reloadData];
         self.photoAlbumView.centerPageIndex = self.photoIndex;
@@ -82,10 +86,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    self.photoAlbumView.frame = self.view.frame; // fix bug with toolbar not transparent
+{    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -196,9 +197,6 @@
         CGRect frame = self.navigationController.navigationBar.frame;
         frame.origin.y = 0;
         self.navigationController.navigationBar.frame = frame;
-    } else {
-        self.view.backgroundColor = [UIColor colorWithWhite:0.193 alpha:1.000];
-        
     }
 }
 
