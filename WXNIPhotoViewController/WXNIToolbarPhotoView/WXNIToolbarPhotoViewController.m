@@ -72,11 +72,20 @@
         self.toolbar.translucent = YES;
         self.hidesChromeWhenScrolling = YES;
         self.photoAlbumView.frame = self.view.frame; // fix bug with toolbar not transparent
+        self.wantsFullScreenLayout = YES;
+        
         
         [self.photoAlbumView reloadData];
         self.photoAlbumView.centerPageIndex = self.photoIndex;
         [self refreshChromeState];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    self.photoAlbumView.frame = self.view.frame; // fix bug with toolbar not transparent
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -176,6 +185,21 @@
         self.progressView.frame = CGRectMake(x, y, self.progressView.frame.size.width, self.progressView.frame.size.width);
     }
     self.title = [NSString stringWithFormat:@"%d of %lu", self.photoAlbumView.centerPageIndex + 1, (unsigned long)self.photos.count];
+}
+
+- (void)setChromeVisibility:(BOOL)isVisible animated:(BOOL)animated
+{
+    // added to fix bug for navigation bar appears in wrong position
+    [super setChromeVisibility:isVisible animated:animated];
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7) {
+        CGRect frame = self.navigationController.navigationBar.frame;
+        frame.origin.y = 0;
+        self.navigationController.navigationBar.frame = frame;
+    } else {
+        self.view.backgroundColor = [UIColor colorWithWhite:0.193 alpha:1.000];
+        
+    }
 }
 
 - (void)setImageNotFoundPlaceHolder:(UIImage *)image

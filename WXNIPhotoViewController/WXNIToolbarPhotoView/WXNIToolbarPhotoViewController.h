@@ -17,6 +17,13 @@
 
 @end
 
+@protocol CacheProtocol <NSObject>
+
+- (id)objectForKey:(id)key;
+- (void)setObject:(id)object forKey:(id)key;
+
+@end
+
 @interface WXNIToolbarPhotoViewController : NIToolbarPhotoViewController <NIPhotoAlbumScrollViewDataSource>
 
 @property (strong, nonatomic) NSArray *photos;
