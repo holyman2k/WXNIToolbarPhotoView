@@ -107,6 +107,7 @@
 		6F36DC021863D79A0027BE8C /* WXNIPhotoViewController */ = {
 			isa = PBXGroup;
 			children = (
+				6F36DC2B1863D7A10027BE8C /* WXNIToolbarPhotoView */,
 				6F36DC0B1863D79A0027BE8C /* WXAppDelegate.h */,
 				6F36DC0C1863D79A0027BE8C /* WXAppDelegate.m */,
 				6F36DC0E1863D79A0027BE8C /* Images.xcassets */,
@@ -142,6 +143,13 @@
 				6F36DC1E1863D79A0027BE8C /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6F36DC2B1863D7A10027BE8C /* WXNIToolbarPhotoView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = WXNIToolbarPhotoView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
