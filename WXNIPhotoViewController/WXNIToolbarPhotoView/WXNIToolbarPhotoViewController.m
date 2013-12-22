@@ -30,7 +30,10 @@
     self.photoCache = [[NSCache alloc] init];
     
     if ([UIDevice currentDevice].systemVersion.floatValue >= 7) {
-        [self setAutomaticallyAdjustsScrollViewInsets: NO];
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        self.extendedLayoutIncludesOpaqueBars = YES;
+    } else {
+        self.wantsFullScreenLayout = YES;
     }
     self.photoAlbumView.dataSource = self;
     self.photoAlbumView.loadingImage = [UIImage imageWithContentsOfFile:NIPathForBundleResource(nil, DefaultPhoto)];
@@ -74,7 +77,6 @@
         self.toolbar.translucent = YES;
         self.hidesChromeWhenScrolling = YES;
         self.photoAlbumView.frame = self.view.frame; // fix bug with toolbar not transparent
-        self.wantsFullScreenLayout = YES;
         if (self.navigationController) {
             self.photoAlbumView.frame = self.navigationController.view.frame; // fix bug with toolbar not transparent
         }
@@ -195,7 +197,7 @@
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7) {
         CGRect frame = self.navigationController.navigationBar.frame;
-        frame.origin.y = 0;
+        frame.origin.y = 22;
         self.navigationController.navigationBar.frame = frame;
     }
 }
